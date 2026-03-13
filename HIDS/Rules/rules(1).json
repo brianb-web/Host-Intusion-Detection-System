@@ -1,0 +1,74 @@
+{
+  "auth": {
+    "ssh_brute_force": {
+      "threshold": 5,
+      "window_seconds": 60
+    }
+  },
+  
+  "web": {
+    "sql_injection": {
+      "severity": "High",
+      "patterns": [
+        "(\\%27)|(\\')|(\\-\\-)|(\\%23)|(#)",
+        "(\\b(select|union|insert|drop|update|delete)\\b)",
+        "(?i)\\b(select|union|insert|drop|update|delete)\\b",
+        "' OR '1'='1",
+        "1=1",
+        "UNION SELECT",
+        "--",
+        ";--",
+        "'; DROP TABLE",
+        "%27", "%3B", "%23", "#"
+      ]
+    },
+    "xss": {
+      "severity": "High",
+      "patterns": [
+        "<script.*?>",
+        "onerror=",
+        "alert\\(",
+        "document\\.cookie",
+        "<img\\s+.*?onerror=",
+        "(<script\\b[^<]*(?:(?!<\\/script>)<[^<]*)*<\\/script>)",
+        "(%3Cscript%3E)|(%3C%2Fscript%3E)",
+        "(<img[^>]+onerror=)",
+        "(alert\\s*\\()"
+      ]
+    },
+    "directory_traversal": {
+      "severity": "Medium",
+      "patterns": [
+        "\\.\\./",
+        "\\.\\.\\\\",
+        "/etc/passwd",
+        "boot\\.ini",
+        "%2e%2e%2f"
+      ]
+    },
+    "lfi": {
+      "severity": "High",
+      "patterns": [
+        "php\\?file=",
+        "file=../../",
+        "file=/etc/passwd",
+        "(\\.\\./)+etc/passwd",
+        "(\\.\\./)+etc/shadow",
+        "(\\.\\./)+windows/win.ini",
+        "(\\.\\./)+boot.ini",
+        "(%2e%2e%2f)+"
+      ]
+    },
+    "dos": {
+        "severity": "Critical",
+        "rate_limit": {
+            "threshold": 5,
+            "window_seconds": 5
+        },
+        "patterns": [
+            "(GET|POST) .* HTTP/1\\.1"
+        ]
+    }
+  }
+}
+
