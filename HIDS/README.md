@@ -32,6 +32,3 @@ python3 main.py
 
 =Apache website
 http://localhost/alerts.html
-
-
-This attack line: XSS,"Possible Xss attack: ::1 - - [05/Aug/2025:13:43:41 -0400] ""GET /?q=<script>alert('XSS')</script> HTTP",2025-08-05 13:48:37,Medium,access.log,"::1 - - [05/Aug/2025:13:43:41 -0400] ""GET /?q=<script>alert('XSS')</script> HTTP/1.1"" 200 10926 ""-"" ""curl/8.5.0""" . It was actually printed "XSS" in my dashboard page as a pop up, an acutal vunerabilty. I was directly inserting incident['summary'] (and potentially source) into the HTML output without escaping.
